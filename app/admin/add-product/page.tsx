@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { CATEGORIES } from "@/lib/categories";
 import { addProductAction } from "./actions";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, LayoutList } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Admin – Dodaj proizvod",
@@ -25,6 +26,13 @@ export default function AdminAddProductPage({ searchParams }: PageProps) {
           <p className="font-sans text-sm text-mocha-400 mt-2">
             Dodaj novi proizvod
           </p>
+          <Link
+            href="/admin/products"
+            className="inline-flex items-center gap-2 mt-4 font-sans text-sm text-blush-500 hover:text-blush-600 transition-colors"
+          >
+            <LayoutList size={15} />
+            Pregledaj i briši proizvode →
+          </Link>
         </div>
 
         {wasSuccessful && (
