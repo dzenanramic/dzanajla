@@ -1,12 +1,27 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { addProductAction } from "@/app/admin/add-product/actions";
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="btn-primary w-full mt-2 py-3.5 text-base inline-flex items-center justify-center gap-2 disabled:opacity-60"
+    >
+      {pending && <Loader2 size={16} className="animate-spin" />}
+      {pending ? "Dodavanje..." : "Dodaj proizvod"}
+    </button>
+  );
+}
+
 export function AddProductForm() {
-  const [state, formAction, isPending] = useActionState(addProductAction, null);
+  const [state, formAction] = useFormState(addProductAction, null);
   const formRef = useRef<HTMLFormElement>(null);
 
   // Reset form after successful submission
@@ -140,14 +155,7 @@ export function AddProductForm() {
             </p>
           </div>
 
-          <button
-            type="submit"
-            disabled={isPending}
-            className="btn-primary w-full mt-2 py-3.5 text-base inline-flex items-center justify-center gap-2 disabled:opacity-60"
-          >
-            {isPending && <Loader2 size={16} className="animate-spin" />}
-            {isPending ? "Dodavanje..." : "Dodaj proizvod"}
-          </button>
+          <SubmitButton />
         </form>
       </div>
     </>
