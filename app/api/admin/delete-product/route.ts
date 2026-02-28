@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase-server";
 import type { ApiResponse } from "@/types";
 
@@ -52,6 +53,9 @@ export async function POST(request: NextRequest) {
         await supabase.storage.from("product-images").remove([fileName]);
       }
     }
+
+    revalidatePath("/admin/products");
+    revalidatePath("/");
 
     return NextResponse.json<ApiResponse<null>>({ success: true, data: null });
   } catch (err) {

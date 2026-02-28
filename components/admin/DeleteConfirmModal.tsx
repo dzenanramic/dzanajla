@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Trash2, X, Loader2 } from "lucide-react";
 
 interface DeleteConfirmModalProps {
@@ -16,6 +17,7 @@ export function DeleteConfirmModal({
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   async function handleDelete() {
     const password = passwordRef.current?.value ?? "";
@@ -43,7 +45,8 @@ export function DeleteConfirmModal({
       }
 
       // Refresh the page
-      window.location.href = "/admin/products?deleted=1";
+      router.push("/admin/products?deleted=1");
+      router.refresh();
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Greška. Pokušajte ponovo.",
