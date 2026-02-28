@@ -44,8 +44,7 @@ export function AddProductForm() {
           {/* Admin password */}
           <div className="pb-5 mb-1 border-b border-cream-300">
             <label className="form-label" htmlFor="admin_password">
-              Administratorska lozinka{" "}
-              <span className="text-blush-400">*</span>
+              Administratorska lozinka <span className="text-blush-400">*</span>
             </label>
             <input
               id="admin_password"

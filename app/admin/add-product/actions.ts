@@ -25,7 +25,10 @@ export async function addProductAction(
     const imageFile = formData.get("image") as File | null;
 
     if (!title || !description || isNaN(price) || !categorySlug) {
-      return { success: false, error: "Sva obavezna polja moraju biti popunjena." };
+      return {
+        success: false,
+        error: "Sva obavezna polja moraju biti popunjena.",
+      };
     }
 
     const supabase = createServerSupabaseClient();
@@ -39,10 +42,16 @@ export async function addProductAction(
 
       const { error: uploadError } = await supabase.storage
         .from("product-images")
-        .upload(fileName, buffer, { contentType: imageFile.type, upsert: false });
+        .upload(fileName, buffer, {
+          contentType: imageFile.type,
+          upsert: false,
+        });
 
       if (uploadError) {
-        return { success: false, error: `Greška pri uploadu: ${uploadError.message}` };
+        return {
+          success: false,
+          error: `Greška pri uploadu: ${uploadError.message}`,
+        };
       }
 
       const { data: urlData } = supabase.storage
@@ -61,7 +70,10 @@ export async function addProductAction(
     });
 
     if (insertError) {
-      return { success: false, error: `Greška pri unosu: ${insertError.message}` };
+      return {
+        success: false,
+        error: `Greška pri unosu: ${insertError.message}`,
+      };
     }
 
     return { success: true };
