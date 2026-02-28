@@ -126,11 +126,11 @@ export default async function ProductPage({ params }: PageProps) {
             </div>
 
             {/* Order CTA */}
-            <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <OrderButton product={product} />
               <Link
                 href={`/category/${categorySlug}`}
-                className="btn-secondary"
+                className="btn-secondary text-base px-8 py-4"
               >
                 Pogledaj više
               </Link>
